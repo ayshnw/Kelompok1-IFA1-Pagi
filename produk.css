@@ -1,0 +1,192 @@
+/* Reset CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fc;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Navbar */
+.navbar {
+    background-color: #343a40;
+    color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 30px; /* Memperlebar jarak pada navbar */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar .brand {
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.navbar ul {
+    list-style: none;
+    display: flex;
+}
+
+.navbar ul li {
+    margin-left: 30px; /* Memperlebar jarak antar menu */
+}
+
+.navbar ul li a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1.1rem;
+    transition: color 0.3s ease;
+}
+
+.navbar ul li a:hover {
+    color: #ffc107;
+}
+
+/* Container */
+.container {
+    width: 90%;
+    margin: 40px auto; /* Memperlebar jarak atas dan bawah */
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 30px 40px; /* Memperlebar padding di dalam container */
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px; /* Memperlebar jarak bawah judul */
+    font-size: 2rem; /* Memperbesar ukuran font judul */
+}
+
+/* Button Tambah Produk */
+.button-add {
+    display: inline-block;
+    background-color: #28a745;
+    color: #fff;
+    padding: 15px 30px; /* Memperlebar padding pada tombol */
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    margin-bottom: 30px; /* Memperlebar jarak bawah tombol */
+}
+
+.button-add:hover {
+    background-color: #218838;
+    transform: scale(1.05);
+}
+
+/* Tabel */
+table {
+    width: 100%;
+    border-collapse: separate; /* Mengubah ke separate untuk memberi jarak antar sel */
+    border-spacing: 15px; /* Memperlebar jarak antar sel tabel */
+    margin-top: 30px; /* Menambah jarak atas tabel */
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+table th, table td {
+    padding: 18px; /* Memperlebar padding pada sel tabel */
+    text-align: center;
+    border-bottom: 2px solid #ddd;
+}
+
+table th {
+    background-color: #007bff;
+    color: #ffffff;
+    text-transform: uppercase;
+}
+
+table tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+table tr:hover {
+    background-color: #e9ecef;
+    transition: background-color 0.3s ease;
+}
+
+/* Foto Produk */
+table td img {
+    width: 100px; /* Memperbesar ukuran gambar */
+    height: auto;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+table td img:hover {
+    transform: scale(1.1);
+}
+
+/* Tombol Edit dan Hapus */
+.btn {
+    display: inline-block;
+    padding: 10px 15px; /* Memperlebar padding pada tombol */
+    margin: 5px;
+    font-size: 1rem; /* Memperbesar ukuran font tombol */
+    font-weight: bold;
+    color: #fff;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+}
+
+.btn-warning {
+    background-color: #ffc107;
+    color: #333;
+}
+
+.btn-warning:hover {
+    background-color: #e0a800;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .navbar ul {
+        margin-top: 10px;
+    }
+
+    .navbar ul li {
+        margin-left: 0;
+        margin-bottom: 10px;
+    }
+
+    table, table th, table td {
+        font-size: 0.9rem; /* Menambah ukuran font pada perangkat kecil */
+    }
+
+    table td img {
+        width: 80px; /* Memperbesar gambar sedikit pada perangkat kecil */
+    }
+}

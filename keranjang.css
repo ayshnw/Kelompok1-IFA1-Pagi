@@ -1,0 +1,246 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+    font-family: "Parkinsans", sans-serif;
+    list-style: none;
+    text-decoration: none;
+}
+
+header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    right: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 10%;
+    background-color: #fff;
+    transition: all 0.3s ease;
+}
+
+header.sticky {
+    background: #96C9F4;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    padding: 10px 10%;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.logo h1 {
+    font-size: 24px;
+    text-decoration: underline;
+    color: #333;
+}
+
+.navmenu {
+    display: flex;
+}
+
+.navmenu li {
+    margin: 0 15px;
+}
+
+.navmenu a {
+    color: #333;
+    font-size: 16px;
+    text-transform: capitalize;
+    font-weight: 400;
+    transition: color 0.3s ease;
+}
+
+.navmenu a:hover {
+    color: #49adff;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+}
+
+.search-bar input {
+    width: 200px;
+    padding: 5px 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    text-align: center;
+}
+
+.nav-icon {
+    display: flex;
+    align-items: center;
+}
+
+.nav-icon a {
+    margin-left: 15px;
+    color: #333;
+    font-size: 20px;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.nav-icon a:hover {
+    transform: scale(1.1);
+    color: #49adff;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+}
+
+.shopping-cart {
+    max-width: 100%;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 100px;
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    margin-left: 40%;
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 20px;
+}
+
+.cart-item img {
+    width: 100px;
+    height: 150px;
+    object-fit: cover;
+    margin-right: 20px;
+}
+
+.item-details {
+    flex: 1;
+}
+
+.item-details h2 {
+    font-size: 18px;
+    margin: 0 0 5px;
+}
+
+.brand {
+    color: #a3afbc;
+    font-weight: bold;
+}
+
+.ratting i {
+    color: #FF8C00;
+    font-size: 18px;
+}
+
+.harga h4 {
+    color: #111;
+    font-size: 16px;
+    text-transform: capitalize;
+    font-weight: 400;
+}
+
+.harga p {
+    color: #111;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.item-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.item-actions input {
+    width: 60px;
+    padding: 5px;
+    font-size: 14px;
+    margin-bottom: 5px;
+    border: 2px solid #49adff;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.item-actions input:focus {
+    border-color: #ffb900;
+    outline: none;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: #f9f9f9;
+}
+
+.item-actions button {
+    background: #49adff;
+    color: #fff;
+    padding: 10px 10px;
+    font-size: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.item-actions button:hover {
+    background: #96C9F4;
+    color: #fff;
+}
+
+.price {
+    font-size: 12px;
+    color: #e60023;
+    margin-left: 20px;
+}
+
+.summary {
+    text-align: right;
+    padding: 20px;
+}
+
+.summary p {
+    margin: 10px 0;
+    padding: 20px;
+}
+
+.delete-button{
+    padding: 5px;
+    background-color: #49adff;
+    border-radius: 5px;
+
+}
+
+.proceed-to-buy {
+    background-color: #49adff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #000;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.proceed-to-buy:hover {
+    background-color: #ffb900;
+}
