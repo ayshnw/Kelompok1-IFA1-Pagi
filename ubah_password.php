@@ -3,6 +3,48 @@
 // Deskripsi: mengelola fungsi untuk merubah password yang tersambung dari halaman profile
 // Dibuat oleh: Aisyah Nurwa Hida - NIM: 3312401004
 // Tanggal: 02 Desember 2024
+DECLARE db_connection AS DatabaseConnection  
+DECLARE username AS STRING  
+DECLARE old_password AS STRING  
+DECLARE new_password AS STRING  
+DECLARE confirm_password AS STRING  
+
+db_connection = OPEN CONNECTION TO 'astore'  
+
+INPUT username  
+INPUT old_password  
+
+INPUT new_password  
+INPUT confirm_password  
+
+IF db_connection IS NOT NULL THEN  
+    DECLARE stored_password AS STRING  
+
+    EXECUTE QUERY 'SELECT password FROM users WHERE username = :username' INTO stored_password  
+
+    IF VERIFY_PASSWORD(old_password, stored_password) THEN  
+        IF new_password == confirm_password THEN  
+            IF LENGTH(new_password) >= 6 THEN  
+                DECLARE hashed_password AS STRING  
+                hashed_password = HASH(new_password)  
+
+                EXECUTE QUERY 'UPDATE users SET password = :hashed_password WHERE username = :username'  
+
+                DISPLAY "Password berhasil diubah!"  
+            ELSE  
+                DISPLAY "Password baru harus minimal 6 karakter!"  
+            ENDIF  
+        ELSE  
+            DISPLAY "Password baru dan konfirmasi password tidak cocok!"  
+        ENDIF  
+    ELSE  
+        DISPLAY "Password lama salah!"  
+    ENDIF  
+ELSE  
+    DISPLAY "Gagal koneksi ke database"  
+ENDIF  
+
+CLOSE db_connection  
 -->
 
 <?php
