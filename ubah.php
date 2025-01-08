@@ -3,7 +3,34 @@
 // Deskripsi: File ini merupakan file tambahan untuk file produk.php
 // Dibuat oleh: Dionaldi Sion Yosua - NIM: 3312401011
 // Tanggal: 02 November 2024
+-->
+<!-- 
+DECLARE db connection AS DatabaseConnection
+DECLARE id_produk name AS INTEGER
+DECLARE nama_produk number AS STRING
+DECLARE ukuran AS STRING
+DECLARE deskripsi AS STRING
+DECLARE harga AS FLOAT
+DECLARE stok number AS INTEGER
+DECLARE gambar number AS STRING
 
+db connection = OPEN CONNECTION TO 'astore'
+
+INPUT Nama Produk
+INPUT Ukuran
+INPUT Deskripsi
+INPUT Harga
+INPUT Stok
+INPUT Foto
+
+IF db connection IS NOT NULL THEN
+    EXECUTE QUERY 'UPDATE produk SET nama_produk = $nama_produk, ukuran = $ukuran, deskripsi = $deskripsi, harga = $harga, stok = $stok, gambar = $gambar WHERE id = $id'
+    DISPLAY "Produk berhasil diperbarui!"
+ELSE
+    DISPLAY "Gagal memperbarui produk: "
+ENDIF
+
+CLOSE db connection
 -->
 
 
