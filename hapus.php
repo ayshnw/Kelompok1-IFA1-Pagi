@@ -3,6 +3,46 @@
 // Deskripsi: File ini merupakan file tambahan untuk file produk.php
 // Dibuat oleh: Dionaldi Sion Yosua - NIM: 3312401011
 // Tanggal: 02 November 2024
+
+<!--  
+DECLARE db_connection AS DatabaseConnection
+DECLARE produk AS LIST
+DECLARE id_produk AS INTEGER
+DECLARE nama_produk AS STRING
+DECLARE ukuran AS STRING
+DECLARE deskripsi AS STRING
+DECLARE harga AS FLOAT   
+DECLARE stok AS INTEGER
+DECLARE gambar AS IMAGE
+
+db_connection = OPEN CONNECTION TO 'astore'
+
+IF db_connection IS NOT NULL THEN 
+    EXECUTE QUERY 'SELECT * FROM produk' INTO produk
+
+FOR produk IN produk DO
+    OUTPUT "Id: " +id_produk
+    OUTPUT "Nama: " +nama_produk
+    OUTPUT "Ukuran: " +ukuran
+    OUTPUT "Deskripsi: " +deskripsi
+    OUTPUT "Harga: " +harga
+    OUTPUT "Stok: " +stok
+    OUTPUT "Gambar: " +gambar
+ENDFOR
+
+IF produk IS NOT NULL THEN
+    EXECUTE QUERY 'DELETE * FROM produk WHERE id=id_produk'
+    OUTPUT "Data berhasil dihapus"
+ELSE
+    OUTPUT "Data gagal dihapus"
+ENDIF
+
+ELSE
+    OUTPUT "Gagal koneksi ke database"
+ENDIF
+
+CLOSE db_connection
+-->
 -->
 
 <?php
