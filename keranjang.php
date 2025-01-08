@@ -4,6 +4,111 @@
               keranjang belanja.
 // Dibuat oleh: Steven Marcell Samosir - NIM: 3312401003
 // Tanggal: 02 Desember
+
+DECLARE db_connection AS DatabaseConnection  
+DECLARE username AS STRING  
+DECLARE cart_items AS ARRAY  
+DECLARE total AS DECIMAL(10,2)  
+DECLARE produk_id AS INTEGER  
+DECLARE jumlah AS INTEGER  
+DECLARE ukuran AS STRING  
+DECLARE nama_produk AS STRING  
+DECLARE harga AS DECIMAL(10,2)  
+DECLARE stok AS INTEGER  
+DECLARE cart_item AS RECORD  
+DECLARE total_bayar AS DECIMAL(10,2)  
+DECLARE username AS RECORD  
+DECLARE selected_items AS ARRAY  
+DECLARE item AS RECORD  
+
+db_connection = OPEN CONNECTION TO 'astore'  
+
+INPUT username  
+
+IF username IS NULL THEN  
+    DISPLAY "Silakan login terlebih dahulu"  
+    EXIT  
+ENDIF  
+
+EXECUTE QUERY 'SELECT k.*, p.ukuran, p.stok, p.gambar FROM keranjang k JOIN produk p ON k.nama_produk = p.nama_produk WHERE k.username = :username' INTO cart_items  
+
+total = 0
+
+-- Menampilkan item keranjang
+FOR EACH item IN cart_items DO  
+    DISPLAY "Produk: " + item.nama_produk
+    DISPLAY "Ukuran: " + item.ukuran
+    DISPLAY "Stok Tersedia: " + item.stok
+    DISPLAY "Harga: " + item.harga
+    DISPLAY "Jumlah: " + item.jumlah
+    total = total + (item.harga * item.jumlah)
+END FOR  
+
+IF INPUT "tambah_keranjanng" IS NOT NULL THEN  
+    produk_id = INPUT produk_id  
+    jumlah = INPUT jumlah  
+    ukuran = INPUT ukuran  
+
+    EXECUTE QUERY 'SELECT * FROM produk WHERE id_produk = :produk_id' INTO produk_id  
+
+    IF product_data IS NOT NULL THEN  
+        nama_produk = produk_id.nama_produk  
+        harga = produk_id.harga  
+        stok = produk_id.stok  
+
+        IF stok >= jumlah THEN  
+            EXECUTE QUERY 'SELECT * FROM keranjang WHERE username = :username AND nama_produk = :nama_produk AND ukuran = :ukuran' INTO cart_item  
+
+            IF cart_item IS NOT NULL THEN  
+                EXECUTE QUERY 'UPDATE keranjang SET jumlah = jumlah + :jumlah WHERE id_produk = :cart_item.id_produk'  
+            ELSE  
+                EXECUTE QUERY 'INSERT INTO keranjang (username, id_produk, nama_produk, ukuran, harga, jumlah) VALUES (:username, :produk_id, :nama_produk, :ukuran, :harga, :jumlah)'  
+            END IF  
+
+            DISPLAY "Produk berhasil ditambahkan ke keranjang!"  
+        ELSE  
+            DISPLAY "Stok tidak mencukupi!"  
+        END IF  
+    ELSE  
+        DISPLAY "Produk tidak ditemukan!"  
+    END IF  
+END IF  
+
+IF INPUT "hapus_item" IS NOT NULL THEN  
+    produk_id = INPUT produk_id  
+    EXECUTE QUERY 'DELETE FROM keranjang WHERE id_produk = :produk_id AND username = :username'  
+    DISPLAY "Item berhasil dihapus dari keranjang!"  
+END IF  
+
+-- Proses pembayaran
+IF INPUT "bayar" IS NOT NULL THEN  
+    -- Memeriksa apakah pengguna sudah mengisi profil (nama harus diisi)
+    EXECUTE QUERY 'SELECT nama FROM users WHERE username = :username' INTO username  
+    IF username.nama IS NULL THEN  
+        DISPLAY "Silakan lengkapi profil Anda terlebih dahulu!"  
+        EXIT  
+    END IF  
+
+    IF INPUT "pilih_bayar" IS NOT NULL THEN  
+        total_bayar = 0  
+
+        FOR EACH selected_item IN selected_items DO  
+            EXECUTE QUERY 'SELECT harga, jumlah FROM keranjang WHERE id_produk = :selected_item AND username = :username' INTO item_data  
+            total_bayar = total_bayar + (item.harga * item.jumlah)  
+        END FOR  
+
+        DISPLAY "Total yang harus dibayar: " + total_bayar  
+
+        -- Melanjutkan ke pembayaran atau menghasilkan resi
+        DISPLAY "Lanjutkan ke pembayaran atau buat resi"  
+    ELSE  
+        DISPLAY "Silakan pilih produk yang ingin dibayar!"  
+    END IF  
+END IF  
+
+-- Menutup koneksi database
+CLOSE db_connection  
+-->
 -->
 
 <?php
