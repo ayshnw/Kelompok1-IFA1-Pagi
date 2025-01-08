@@ -47,6 +47,7 @@ ENDIF
 
 CLOSE db_connection  
 -->
+
 <?php
 // Memulai session
 session_start();
