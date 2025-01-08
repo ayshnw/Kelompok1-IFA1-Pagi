@@ -3,6 +3,28 @@
 // Deskripsi: mengelola fungsi dari forgot_password untuk reset password.
 // Dibuat oleh: Fahmi Ahmad Fardani - NIM: 3312401017
 // Tanggal: 01 Desember 2024
+
+DECLARE db_connection AS DatabaseConnection
+DECLARE newPassword AS STRING
+DECLARE confirmPassword AS STRING
+
+db_connection = OPEN CONNECTION TO 'astore'
+
+INPUT newPassword
+INPUT confirmPassword
+
+IF db_connection IS NOT NULL THEN
+  DECLAE newPassword email AS STRING
+  DELARE confirmPassword AS STRING
+
+  EXECUTE QUERY 'SELECT password FROM users WHERE username :username' INTO password
+
+	DISPLAY "Password berhasil diperbarui"
+
+  ELSE  DISPLAY "Gagal memperbarui Password"
+  ENDIF
+
+CLOSE db_connection
 -->
 
 <?php
