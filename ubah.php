@@ -4,56 +4,6 @@
 // Dibuat oleh: Dionaldi Sion Yosua - NIM: 3312401011
 // Tanggal: 02 November 2024
 
-DECLARE db_connection AS DatabaseConnection  
-DECLARE id_produk AS STRING  
-DECLARE nama_produk AS STRING  
-DECLARE ukuran AS STRING  
-DECLARE deskripsi AS STRING  
-DECLARE harga AS FLOAT  
-DECLARE stok AS INT  
-DECLARE gambar AS FILE  
-DECLARE upload_dir AS STRING  
-DECLARE upload_path AS STRING  
-DECLARE query AS STRING  
-
-// Membuka koneksi ke database
-db_connection = OPEN CONNECTION TO 'astore'  
-
-// Input dari pengguna
-INPUT id_produk  
-INPUT nama_produk  
-INPUT ukuran  
-INPUT deskripsi  
-INPUT harga  
-INPUT stok  
-INPUT gambar  
-
-// Cek apakah koneksi ke database berhasil
-IF db_connection IS NOT NULL THEN  
-    // Proses upload gambar
-    upload_dir = "uploads/"  
-    upload_path = upload_dir + BASE_NAME(gambar)  
-    
-    IF MOVE_FILE(gambar, upload_path) THEN  
-        // Jika gambar berhasil diupload, buat query untuk menambahkan produk
-        query = 'INSERT INTO produk (id_produk, nama_produk, ukuran, deskripsi, harga, stok, gambar) 
-                 VALUES (id_produk, nama_produk, ukuran, deskripsi, harga, stok, gambar)'  
-        
-        // Eksekusi query
-        IF EXECUTE_QUERY(query) THEN  
-            DISPLAY "Produk berhasil ditambahkan!"  
-        ELSE  
-            DISPLAY "Gagal menambahkan produk!"  
-        END IF  
-    ELSE  
-        DISPLAY "Gagal mengupload gambar."  
-    END IF  
-ELSE  
-    DISPLAY "Gagal koneksi ke database!"  
-END IF  
-
-// Menutup koneksi database
-CLOSE db_connection
 -->
 
 
