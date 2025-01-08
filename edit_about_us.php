@@ -2,6 +2,26 @@
 <!-- Deskripsi: File ini mengelola edit data untuk tentang Kami -->
 <!-- Dibuat oleh: Raid Aqil Athallah - NIM: 3312401022 -->
 <!-- Tanggal: 16 November 2024-->
+<!-- 
+DECLARE db connection AS DatabaseConnection
+DECLARE id name AS INTEGER
+DECLARE nama number AS STRING
+DECLARE gambar AS STRING
+
+db connection = OPEN CONNECTION TO 'astore'
+
+INPUT Nama
+INPUT Gambar
+
+IF db connection IS NOT NULL THEN
+    EXECUTE QUERY 'UPDATE about_us SET nama = $nama, gambar = $gambarBaru WHERE id = $id'
+    DISPLAY "Produk berhasil diperbarui!"
+ELSE
+    DISPLAY "Terjadi kesalahan pada database."
+ENDIF
+
+CLOSE db connection
+-->
 
 <?php
 include 'koneksi.php'; // Menghubungkan ke file koneksi untuk database
