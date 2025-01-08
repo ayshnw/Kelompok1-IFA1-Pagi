@@ -2,6 +2,37 @@
 <!-- Deskripsi: File ini mengelola hapus data untuk tentang Kami -->
 <!-- Dibuat oleh: Raid Aqil Athallah - NIM: 3312401022 -->
 <!-- Tanggal: 25 November 2024-->
+<!--  
+<!--DECLARE db_connection AS DatabaseConnection
+DECLARE about_us AS LIST
+DECLARE id AS INTEGER
+DECLARE nama AS STRING
+DECLARE gambar AS IMAGE
+
+db_connection = OPEN CONNECTION TO 'astore'
+
+IF db_connection IS NOT NULL THEN 
+    EXECUTE QUERY 'SELECT * FROM about_us' INTO about_us
+
+FOR about_us IN about_us DO
+    OUTPUT "Id: " +id
+    OUTPUT "Nama: " +nama
+    OUTPUT "Gambar: " +gambar
+ENDFOR
+
+IF about_us IS NOT NULL THEN
+    EXECUTE QUERY 'DELETE * FROM about_us WHERE id=id'
+    OUTPUT "Data berhasil dihapus"
+ELSE
+    OUTPUT "Data gagal dihapus"
+ENDIF
+
+ELSE
+    OUTPUT "Gagal koneksi ke database"
+ENDIF
+
+CLOSE db_connection
+-->
 
 
 <?php
