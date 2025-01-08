@@ -1,6 +1,6 @@
 <!--
 // Nama File: sandibaru.php
-// Deskripsi: mengelola fungsi dari forgot_password untuk reset password.
+// Deskripsi: mengelola fungsi dari resetsandi untuk membuat sandibaru.
 // Dibuat oleh: Fahmi Ahmad Fardani - NIM: 3312401017
 // Tanggal: 01 Desember 2024
 
