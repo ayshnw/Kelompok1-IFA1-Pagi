@@ -3,6 +3,25 @@
 // Deskripsi: mengelola fungsi yang berhubungan dengan forgot password pada halaman login
 // Dibuat oleh: Fahmi Ahmad Fardani - NIM: 3312401017
 // Tanggal: 01 Desember 2024
+
+DECLARE db_connention AS DatabaseConnection
+DECLARE email AS STRING
+
+db_connection = OPEN CONNECTION TO 'astore'
+
+INPUT email
+
+IF db_connection IS NOT NULL THEN
+  DECLARE email AS STRING
+
+  EXECUTE QUERY 'SELECT email FROM users WHERE username = :username' INTO email
+	
+	DISPLAY "Email berhasil"
+
+  ELSE	DISPLAY "Email tidak ditemukan"
+  ENDIF
+
+CLOSE db_connection
 -->
 
 <?php 
