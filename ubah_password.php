@@ -3,6 +3,7 @@
 // Deskripsi: mengelola fungsi untuk merubah password yang tersambung dari halaman profile
 // Dibuat oleh: Aisyah Nurwa Hida - NIM: 3312401004
 // Tanggal: 02 Desember 2024
+
 DECLARE db_connection AS DatabaseConnection  
 DECLARE username AS STRING  
 DECLARE old_password AS STRING  
@@ -46,7 +47,6 @@ ENDIF
 
 CLOSE db_connection  
 -->
-
 <?php
 // Memulai session
 session_start();
@@ -80,35 +80,47 @@ if (isset($_POST["ubah_password"])) {
         // Jika ada input kosong, tampilkan pesan error
         $error_message = "Semua kolom wajib diisi!";
     } else {
-        // Ambil password lama dari database
-        $query = "SELECT password FROM users WHERE username = ?";
-        $stmt = mysqli_prepare($koneksi, $query); // Menyiapkan query untuk eksekusi
-        mysqli_stmt_bind_param($stmt, "s", $username); // Mengikat parameter username
-        mysqli_stmt_execute($stmt); // Menjalankan query
-        $result = mysqli_stmt_get_result($stmt); // Mendapatkan hasil query
+        try {
+            // Ambil password lama dari database
+            $query = "SELECT password FROM users WHERE username = ?";
+            $stmt = mysqli_prepare($koneksi, $query); // Menyiapkan query untuk eksekusi
+            if (!$stmt) {
+                throw new Exception("Gagal menyiapkan query: " . mysqli_error($koneksi));
+            }
+            
+            mysqli_stmt_bind_param($stmt, "s", $username); // Mengikat parameter username
+            mysqli_stmt_execute($stmt); // Menjalankan query
+            $result = mysqli_stmt_get_result($stmt); // Mendapatkan hasil query
 
-        // Mengecek apakah data pengguna ditemukan
-        if ($result && mysqli_num_rows($result) > 0) {
-            $user = mysqli_fetch_assoc($result); // Mengambil data pengguna
+            // Mengecek apakah data pengguna ditemukan
+            if ($result && mysqli_num_rows($result) > 0) {
+                $user = mysqli_fetch_assoc($result); // Mengambil data pengguna
 
-            // Verifikasi password lama
-            if (password_verify($password_lama, $user["password"])) {
-                // Periksa apakah password baru dan konfirmasi cocok
-                if ($password_baru === $konfirmasi_password) {
-                    // Validasi panjang password baru harus minimal 6 karakter
-                    if (strlen($password_baru) < 6) {
-                        $error_message = "Password baru harus minimal 6 karakter!";
-                    } else {
-                         // Meng-hash password baru untuk keamanan
-                        $password_baru_hash = password_hash($password_baru, PASSWORD_DEFAULT);
+                // Verifikasi password lama
+                if (password_verify($password_lama, $user["password"])) {
+                    // Periksa apakah password baru dan konfirmasi cocok
+                    if ($password_baru === $konfirmasi_password) {
+                        // Validasi panjang password baru harus minimal 6 karakter
+                        if (strlen($password_baru) < 6) {
+                            $error_message = "Password baru harus minimal 6 karakter!";
+                        } else {
+                             // Meng-hash password baru untuk keamanan
+                            $password_baru_hash = password_hash($password_baru, PASSWORD_DEFAULT);
 
-                        // Query untuk memperbarui password pengguna di database
-                        $update_query = "UPDATE users SET password = ? WHERE username = ?";
-                        $update_stmt = mysqli_prepare($koneksi, $update_query);  // Menyiapkan query update
-                        mysqli_stmt_bind_param($update_stmt, "ss", $password_baru_hash, $username); // Mengikat parameter password dan username
+                            // Query untuk memperbarui password pengguna di database
+                            $update_query = "UPDATE users SET password = ? WHERE username = ?";
+                            $update_stmt = mysqli_prepare($koneksi, $update_query);  // Menyiapkan query update
+                            if (!$update_stmt) {
+                                throw new Exception("Gagal menyiapkan query update: " . mysqli_error($koneksi));
+                            }
 
-                        // Mengeksekusi query untuk memperbarui password
-                        if (mysqli_stmt_execute($update_stmt)) {
+                            mysqli_stmt_bind_param($update_stmt, "ss", $password_baru_hash, $username); // Mengikat parameter password dan username
+
+                            // Mengeksekusi query untuk memperbarui password
+                            if (!mysqli_stmt_execute($update_stmt)) {
+                                throw new Exception("Gagal memperbarui password: " . mysqli_stmt_error($update_stmt));
+                            }
+
                             // Hapus session dan arahkan ke halaman login
                             session_destroy();
                             echo "<script>
@@ -116,18 +128,19 @@ if (isset($_POST["ubah_password"])) {
                                 window.location.href = 'login.php';
                             </script>";
                             exit; // Menghentikan eksekusi
-                        } else {
-                            $error_message = "Terjadi kesalahan saat mengupdate password. Silakan coba lagi."; // Pesan error jika gagal update
                         }
+                    } else {
+                        $error_message = "Password baru dan konfirmasi password tidak cocok!"; // Pesan error jika password baru dan konfirmasi tidak cocok
                     }
                 } else {
-                    $error_message = "Password baru dan konfirmasi password tidak cocok!"; // Pesan error jika password baru dan konfirmasi tidak cocok
+                    $error_message = "Password lama salah!"; // Pesan error jika password lama yang dimasukkan salah
                 }
             } else {
-                $error_message = "Password lama salah!"; // Pesan error jika password lama yang dimasukkan salah
+                $error_message = "Data pengguna tidak ditemukan."; // Pesan error jika data pengguna tidak ditemukan di database
             }
-        } else {
-            $error_message = "Data pengguna tidak ditemukan."; // Pesan error jika data pengguna tidak ditemukan di database
+        } catch (Exception $e) {
+            // Tangkap exception dan tampilkan pesan kesalahan
+            $error_message = "Terjadi kesalahan: " . $e->getMessage();
         }
     }
 }
