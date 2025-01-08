@@ -109,7 +109,6 @@ END IF
 -- Menutup koneksi database
 CLOSE db_connection  
 -->
--->
 
 <?php
 
